@@ -11,6 +11,39 @@ def initialize():
 ==========================================================""")
     print("Use 'help' command to view a list of commands w/ description.\n")
 
+def body():
+    userInput = getUserInput()
+
+    while userInput[0] != "exit":
+        print("User command is ", userInput[0])
+        print("\n...Command finished")
+        userInput = getUserInput()
+
+    exit()
+
+def getUserInput():
+    userInput = input("chat: ").split(" ")
+    count = 0
+
+    while(not validateCommand(userInput)):
+        count+=1
+        print("Command invalid!...Use 'help' command to view a list of commands w/ description.") if (count % 3) == 0 else print("Command invalid!")
+        userInput = input("chat: ").split(" ")
+    
+    return userInput
+
+def validateCommand(userInput):
+    validCommands = ["help", "myip", "myport", "connect", "list", "terminate", "send", "exit"]
+    
+    if len(userInput) == 0:
+        return False
+    
+    for command in validCommands:
+        if userInput[0] == command:
+            return True
+
+    return False
+
 
 def help():
     # 1. help Display information about the available user interface options or command manual.
@@ -20,6 +53,7 @@ def myip():
     # 2. myip Display the IP address of this process.
     # Note: The IP should not be your “Local” address (127.0.0.1). It should be the actual IP of the computer. 
     print("myip()")
+
 def myport():
     # 3. myport Display the port on which this process is listening for incoming connections.
     print("myport()") # <- delete once command is finished
@@ -77,9 +111,11 @@ def exit():
 |       CCCCCCCCC   H     H  A        A     TT           |
 |                                                 OFFLINE|
 ==========================================================""")
+        print("\n")
 
 def main():
     initialize()
+    body()
 
 if __name__ == "__main__":
     main()
