@@ -109,7 +109,7 @@ def exit():
 |      C            HH H HH    A AA A       TT           |
 |      C            H     H   A      A      TT           |
 |       CCCCCCCCC   H     H  A        A     TT           |
-|                                                 OFFLINE|
+|                                                OFFLINE |
 ==========================================================""")
         print("\n")
 
