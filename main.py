@@ -7,7 +7,7 @@ def initialize():
 |      C            HH H HH    A AA A       TT           |
 |      C            H     H   A      A      TT           |
 |       CCCCCCCCC   H     H  A        A     TT           |
-|                                                 online |
+|                                                 ONLINE |
 ==========================================================""")
     print("Use 'help' command to view a list of commands w/ description.\n")
 
@@ -67,7 +67,16 @@ def send(connectionID, message):
 def exit():
     # Close all connections and terminate this process. The other peers should also update their connection
     # list by removing the peer that exits.
-    print("exit()")
+        print(r"""
+==========================================================
+|                                                        |
+|       CCCCCCCCC   H     H      AA    TTTTTTTTTTTT      |
+|      C            H     H     A  A        TT           |
+|      C            HH H HH    A AA A       TT           |
+|      C            H     H   A      A      TT           |
+|       CCCCCCCCC   H     H  A        A     TT           |
+|                                                 OFFLINE|
+==========================================================""")
 
 def main():
     initialize()
