@@ -1,14 +1,20 @@
+import socket
+import select
+import sys
+from _thread import *
+
+
 def initialize():
     print(r"""
-==========================================================
-|                                                        |
-|       CCCCCCCCC   H     H      AA    TTTTTTTTTTTT      |
-|      C            H     H     A  A        TT           |
-|      C            HH H HH    A AA A       TT           |
-|      C            H     H   A      A      TT           |
-|       CCCCCCCCC   H     H  A        A     TT           |
-|                                                 ONLINE |
-==========================================================""")
+    ==========================================================
+    |                                                        |
+    |       CCCCCCCCC   H     H      AA    TTTTTTTTTTTT      |
+    |      C            H     H     A  A        TT           |
+    |      C            HH H HH    A AA A       TT           |
+    |      C            H     H   A      A      TT           |
+    |       CCCCCCCCC   H     H  A        A     TT           |
+    |                                                 ONLINE |
+    ==========================================================""")
     print("Use 'help' command to view a list of commands w/ description.\n")
 
 def body():
@@ -43,7 +49,6 @@ def validateCommand(userInput):
             return True
 
     return False
-
 
 def help():
     # 1. help Display information about the available user interface options or command manual.
@@ -101,21 +106,43 @@ def send(connectionID, message):
 def exit():
     # Close all connections and terminate this process. The other peers should also update their connection
     # list by removing the peer that exits.
-        print(r"""
-==========================================================
-|                                                        |
-|       CCCCCCCCC   H     H      AA    TTTTTTTTTTTT      |
-|      C            H     H     A  A        TT           |
-|      C            HH H HH    A AA A       TT           |
-|      C            H     H   A      A      TT           |
-|       CCCCCCCCC   H     H  A        A     TT           |
-|                                                OFFLINE |
-==========================================================""")
-        print("\n")
+    print(r"""
+    ==========================================================
+    |                                                        |
+    |       CCCCCCCCC   H     H      AA    TTTTTTTTTTTT      |
+    |      C            H     H     A  A        TT           |
+    |      C            HH H HH    A AA A       TT           |
+    |      C            H     H   A      A      TT           |
+    |       CCCCCCCCC   H     H  A        A     TT           |
+    |                                                OFFLINE |
+    ==========================================================""")
+    print("\n")
+        
 
 def main():
-    initialize()
-    body()
+    if len(sys.argv) != 2:
+        print("Missing parameter: port number")
+        sys.exit()
+    
+    #Validate Port input
+
+    # Server-----------
+    global server
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)   
+    port = int(sys.argv[1])
+    ip = socket.gethostbyname(socket.gethostname())
+    server.bind((ip, port))
+    server.listen(20)
+    clients = []
+    # Client ---------------
+    global client 
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Todo: modify body() for server to be able to listen to incoming connections
+    
+    # initialize()
+    #body()
 
 if __name__ == "__main__":
     main()
